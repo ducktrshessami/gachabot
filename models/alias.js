@@ -19,7 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   alias.init({
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     spoiler: DataTypes.BOOLEAN
   }, {
     sequelize,
