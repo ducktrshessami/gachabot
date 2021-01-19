@@ -1,4 +1,5 @@
 const { Command } = require("discord-bot");
+const db = require("../models");
 
 // Create DiscordBot.Commands
 
