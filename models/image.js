@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       models.image.belongsTo(models.unit, {
-        onDelete: "set null",
         foreignKey: {
           allowNull: false
         }
