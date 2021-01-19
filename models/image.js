@@ -19,7 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   image.init({
-    url: DataTypes.STRING
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'image',
