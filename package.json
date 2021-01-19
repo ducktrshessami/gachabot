@@ -1,0 +1,19 @@
+{
+  "name": "gachabot",
+  "version": "1.0.0",
+  "description": "Collectors only",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ducktrshessami/gachabot.git"
+  },
+  "author": "ducktrshessami",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ducktrshessami/gachabot/issues"
+  },
+  "homepage": "https://github.com/ducktrshessami/gachabot#readme"
+}
