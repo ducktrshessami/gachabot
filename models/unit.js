@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      models.unit.hasMany(models.image, { onDelete: "cascade" });
+      models.unit.hasMany(models.alias, { onDelete: "cascade" });
     }
   };
   unit.init({
