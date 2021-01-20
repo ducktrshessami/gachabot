@@ -4,6 +4,7 @@ const commands = require("./commands");
 
 var client;
 
+// Use .env for token and developer ID
 require("dotenv").config();
 config.token = process.env.BOT_TOKEN;
 config.admin.push(process.env.BOT_DEVID);
