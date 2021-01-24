@@ -1,12 +1,12 @@
 const db = require("./models");
 
-var bot, ios;
+var bot, is;
 
 // Only start everything if the database is functional
 db.sequelize.sync()
     .then(() => {
         bot = require("./bot");
-        ios = require("./console");
+        is = require("./console");
     })
     .catch(sumTingWong);
 
@@ -20,8 +20,8 @@ function sumTingWong(error) {
     if (bot) {
         bot.destroy();
     }
-    if (ios) {
-        ios.close();
+    if (is) {
+        is.close();
     }
     db.sequelize.close();
 }
