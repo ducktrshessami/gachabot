@@ -18,12 +18,13 @@ fs
 
 // Handle input
 is.on("line", line => {
-    let cmd = line.trim().toLowerCase();
+    let args = line.trim().split(' ');
+    let cmd = args[0].toLowerCase();
     if (commands[cmd]) {
-        commands[cmd]();
+        commands[cmd](args);
     }
     else {
-        console.log(`'${line.trim()}' not recognized`);
+        console.log(`'${args[0]}' not recognized`);
     }
 });
 
