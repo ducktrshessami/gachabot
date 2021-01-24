@@ -1,19 +1,22 @@
-const readline = require("readline");
 const db = require("./models");
+
 var bot, ios;
 
+// Only start everything if the database is functional
 db.sequelize.sync()
     .then(() => {
         bot = require("./bot");
-        ios = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout
-        });
+        ios = require("./console");
     })
     .catch(sumTingWong);
 
+/*
+Close everything
+*/
 function sumTingWong(error) {
-    console.error(error);
+    if (error) {
+        console.error(error);
+    }
     if (bot) {
         bot.destroy();
     }
