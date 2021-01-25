@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   player.init({
-    snowflake: DataTypes.STRING
+    snowflake: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'player',
