@@ -1,6 +1,4 @@
-const fs = require("fs");
-const db = require("../models");
-
 module.exports = function() {
-    
+    console.log("Creating seeders for all models . . .");
+    require("../db/backup")();
 }
