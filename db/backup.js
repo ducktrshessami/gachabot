@@ -1,8 +1,6 @@
-const path = require("path");
-const fs = require("fs");
+const { join } = require("path");
+const { writeFile } = require("fs").promises;
 const db = require("../models");
-const { rejects } = require("assert");
-const { table } = require("console");
 
 // Numbers, but fixed to 2 digits
 function extendo(n) {
@@ -19,7 +17,7 @@ function filepath() {
         date.getUTCMinutes(),
         date.getUTCSeconds()
     ].map(extendo);
-    return path.join(__dirname, "..", "seeders", `${date.getUTCFullYear()}${extend.join("")}-backup.js`);
+    return join(__dirname, "..", "seeders", `${date.getUTCFullYear()}${extend.join("")}-backup.js`);
 }
 
 // Outer seeder template
@@ -47,17 +45,15 @@ function seedDown(model) {
 }
 
 module.exports = function() {
-    return new Promise((resolve, reject) => {
-        let up = [], down = [];
-        Promise.all(Object.keys(db)
-            .filter(key => key.toLowerCase() != "sequelize")
-            .map(model => db[model].findAll()
-                .then(table => JSON.stringify(table, null, 4))
-                .then(tableData => up.push(seedUp(model, tableData)))
-                .then(() => down.push(seedDown(model)))
-            )
+    let up = [], down = [];
+    return Promise.all(Object.keys(db)
+        .filter(key => key.toLowerCase() != "sequelize")
+        .map(model => db[model].findAll()
+            .then(table => JSON.stringify(table, null, 4))
+            .then(tableData => up.push(seedUp(model, tableData)))
+            .then(() => down.push(seedDown(model)))
         )
-            .then(() => seedWrap(up.join("\n"), down.join("\n")))
-            .then(console.log);
-    });
+    )
+        .then(() => seedWrap(up.join("\n"), down.join("\n")))
+        .then(seedContent => writeFile(filepath(), seedContent));
 };
