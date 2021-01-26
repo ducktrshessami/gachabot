@@ -13,9 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  claim.init({
-    foo: DataTypes.STRING
-  }, {
+  claim.init({}, {
     sequelize,
     modelName: 'claim',
   });
