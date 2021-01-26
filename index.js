@@ -1,7 +1,7 @@
 const db = require("./models");
 
 // Only start everything if the database is functional
-db.sequelize.sync()
+db.sequelize.sync({ force: true })
     .then(() => {
         process.bot = require("./bot");
         process.input = require("./console");
