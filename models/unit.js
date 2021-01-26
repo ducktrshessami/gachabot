@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       models.unit.hasMany(models.image, { onDelete: "cascade" });
       models.unit.hasMany(models.alias, { onDelete: "cascade" });
+      models.unit.hasMany(models.claim, { onDelete: "cascade" });
     }
   };
   unit.init({
