@@ -1,9 +1,3 @@
 # config for development
 
-put a file called `.env` in the root of this project
-
-```js
-DB_DEVPASS=
-BOT_TOKEN=
-BOT_DEVID=
-```
+I'm setting it up so that any commits to working will auto-deploy with heroku using the unnamed gachabot in my bot dev server 
