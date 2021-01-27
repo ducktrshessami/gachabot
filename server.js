@@ -5,3 +5,5 @@ const app = express();
 
 app.use(express.static("server"));
 app.listen(PORT);
+
+require("./index");
