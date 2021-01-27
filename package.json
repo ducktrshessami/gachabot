@@ -11,7 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/ducktrshessami/gachabot.git"
   },
-  "author": "ducktrshessami",
+  "contributors": [
+    "ducktrshessami (https://github.com/ducktrshessami)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ducktrshessami/gachabot/issues"
