@@ -4,10 +4,10 @@ const commands = require("./commands");
 
 var client;
 
-// Use .env for token and developer ID
-require("dotenv").config();
+// Use defined environment vars for token and developer ID
 config.token = process.env.BOT_TOKEN;
-config.admin.push(process.env.BOT_DEVID);
+config.admin.push(process.env.DUCK_ID);
+config.admin.push(process.env.TILL_ID);
 
 client = new DiscordBot(config, commands);
 
