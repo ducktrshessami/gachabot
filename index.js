@@ -1,3 +1,10 @@
+try {
+    require("dotenv").config();
+}
+catch {
+    console.info("Not using dotenv. Make sure all environment variables are set.");
+}
+
 const db = require("./models");
 
 // Only start everything if the database is functional
