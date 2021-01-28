@@ -1,6 +1,15 @@
-const { join } = require("path");
-const { writeFile } = require("fs").promises;
+const { resolve, join } = require("path");
+const fs = require("fs");
 const db = require("../models");
+
+const seeders = resolve(__dirname, "..", "seeders");
+
+// Create the seeders folder if it doesn't exist yet
+async function initSeeders() {
+    if (!fs.existsSync(seeders)) {
+        await fs.promises.mkdir(seeders);
+    }
+}
 
 // Numbers, but fixed to 2 digits
 function extendo(n) {
@@ -17,7 +26,7 @@ function filepath() {
         date.getUTCMinutes(),
         date.getUTCSeconds()
     ].map(extendo);
-    return join(__dirname, "..", "seeders", `${date.getUTCFullYear()}${extend.join("")}-backup.js`);
+    return join(seeders, `${date.getUTCFullYear()}${extend.join("")}-backup.js`);
 }
 
 // Outer seeder template
@@ -54,6 +63,7 @@ module.exports = function() {
             .then(() => down.push(seedDown(model)))
         )
     )
+        .then(() => initSeeders())
         .then(() => seedWrap(up.join("\n"), down.join("\n")))
-        .then(seedContent => writeFile(filepath(), seedContent));
+        .then(seedContent => fs.promises.writeFile(filepath(), seedContent));
 };
