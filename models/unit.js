@@ -17,10 +17,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   unit.init({
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     type: DataTypes.STRING
   }, {
     sequelize,

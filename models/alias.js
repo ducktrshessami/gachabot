@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    primary: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     spoiler: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
