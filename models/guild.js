@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       models.guild.hasMany(models.claim, { onDelete: "cascade" });
+      models.guild.hasMany(models.wish, { onDelete: "cascade" });
     }
   };
   guild.init({
