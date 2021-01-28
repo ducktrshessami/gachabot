@@ -13,9 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  wish.init({
-    foo: DataTypes.BOOLEAN
-  }, {
+  wish.init({}, {
     sequelize,
     modelName: 'wish',
   });
