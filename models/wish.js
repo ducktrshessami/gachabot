@@ -3,36 +3,23 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class alias extends Model {
+  class wish extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.alias.belongsTo(models.unit, {
+      models.wish.belongsTo(models.unit, {
         foreignKey: {
           allowNull: false
         }
       });
     }
   };
-  alias.init({
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    primary: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    },
-    spoiler: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    }
-  }, {
+  wish.init({}, {
     sequelize,
-    modelName: 'alias',
+    modelName: 'wish',
   });
-  return alias;
+  return wish;
 };

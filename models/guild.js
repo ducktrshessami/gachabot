@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.guild.hasMany(models.claim, { onDelete: "cascade" });
+      models.guild.belongsToMany(models.player, { through: models.claim });
+      models.guild.belongsToMany(models.player, { through: models.wish });
     }
   };
   guild.init({

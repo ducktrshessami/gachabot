@@ -13,13 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       models.unit.hasMany(models.image, { onDelete: "cascade" });
       models.unit.hasMany(models.alias, { onDelete: "cascade" });
       models.unit.hasMany(models.claim, { onDelete: "cascade" });
+      models.unit.hasMany(models.wish, { onDelete: "cascade" });
     }
   };
   unit.init({
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     type: DataTypes.STRING
   }, {
     sequelize,
