@@ -54,6 +54,19 @@ function seedDown(table) {
     return `await queryInterface.bulkDelete("${table}");`;
 }
 
+// Remove the timezone indicator from timestamps
+function formatTableData(tableData) {
+    return JSON.stringify(tableData.map(row => {
+        let data = Object.create(row.dataValues);
+        for (let column in data) {
+            if (data[column] instanceof Date) {
+                data[column] = data[column].toISOString().slice(0, -1);
+            }
+        }
+        return data;
+    }), null, 4);
+}
+
 module.exports = function() {
     let up = [], down = [];
     return Promise.all(Object.keys(db)
@@ -63,7 +76,7 @@ module.exports = function() {
             return db[model].findAll()
                 .then(tableData => {
                     if (tableData.length) {
-                        up.push(seedUp(table, JSON.stringify(tableData, null, 4)));
+                        up.push(seedUp(table, formatTableData(tableData)));
                         down.push(seedDown(table));
                     }
                 });
