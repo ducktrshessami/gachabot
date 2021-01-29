@@ -44,11 +44,12 @@ function seedWrap(up, down) {
     };`;
 }
 
-//
+// Inner up seeder template
 function seedUp(table, data) {
     return `await queryInterface.bulkInsert("${table}", ${data});`;
 }
 
+// Inner down seeder template
 function seedDown(table) {
     return `await queryInterface.bulkDelete("${table}");`;
 }
