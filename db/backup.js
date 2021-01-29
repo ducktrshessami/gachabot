@@ -57,7 +57,7 @@ function seedDown(table) {
 // Remove the timezone indicator from timestamps
 function formatTableData(tableData) {
     return JSON.stringify(tableData.map(row => {
-        let data = Object.create(row.dataValues);
+        let data = row.dataValues;
         for (let column in data) {
             if (data[column] instanceof Date) {
                 data[column] = data[column].toISOString().slice(0, -1);
