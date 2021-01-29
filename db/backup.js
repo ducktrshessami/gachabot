@@ -60,9 +60,12 @@ module.exports = function() {
         .map(model => {
             let table = db[model].getTableName();
             return db[model].findAll()
-                .then(tableData => JSON.stringify(tableData, null, 4))
-                .then(tableData => up.push(seedUp(table, tableData)))
-                .then(() => down.push(seedDown(table)));
+                .then(tableData => {
+                    if (tableData.length) {
+                        up.push(seedUp(table, JSON.stringify(tableData, null, 4)));
+                        down.push(seedDown(table));
+                    }
+                });
         })
     )
         .then(() => initSeeders())
