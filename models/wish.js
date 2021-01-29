@@ -10,16 +10,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.wish.belongsTo(models.guild, {
-        foreignKey: {
-          allowNull: false
-        }
-      });
-      models.wish.belongsTo(models.player, {
-        foreignKey: {
-          allowNull: false
-        }
-      });
       models.wish.belongsTo(models.unit, {
         foreignKey: {
           allowNull: false
