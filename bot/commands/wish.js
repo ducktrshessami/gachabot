@@ -11,6 +11,6 @@ module.exports = new Command("wish", function(message, args) {
         },
         include: db.unit
     })
-        .then(data => utils.sendVerbose(message.channel, JSON.stringify))
+        .then(data => utils.sendVerbose(message.channel, JSON.stringify(data)))
         .catch(console.error);
 });
