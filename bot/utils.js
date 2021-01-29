@@ -34,9 +34,9 @@ function unitEmbed(name, type, image, color = "RANDOM") {
     return new MessageEmbed({
         color: color,
         title: name,
-        description: type,
-        image: image
-    });
+        description: type
+    })
+        .setImage(image);
 }
 
 module.exports = {
