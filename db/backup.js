@@ -45,23 +45,25 @@ function seedWrap(up, down) {
 }
 
 //
-function seedUp(model, data) {
-    return `await queryInterface.bulkInsert("${model}", ${data});`;
+function seedUp(table, data) {
+    return `await queryInterface.bulkInsert("${table}", ${data});`;
 }
 
-function seedDown(model) {
-    return `await queryInterface.bulkDelete("${model}");`;
+function seedDown(table) {
+    return `await queryInterface.bulkDelete("${table}");`;
 }
 
 module.exports = function() {
     let up = [], down = [];
     return Promise.all(Object.keys(db)
         .filter(key => key.toLowerCase() != "sequelize")
-        .map(model => db[model].findAll()
-            .then(table => JSON.stringify(table, null, 4))
-            .then(tableData => up.push(seedUp(model, tableData)))
-            .then(() => down.push(seedDown(model)))
-        )
+        .map(model => {
+            let table = db[model].getTableName();
+            return db[model].findAll()
+                .then(tableData => JSON.stringify(tableData, null, 4))
+                .then(tableData => up.push(seedUp(table, tableData)))
+                .then(() => down.push(seedDown(table)));
+        })
     )
         .then(() => initSeeders())
         .then(() => seedWrap(up.join("\n"), down.join("\n")))
