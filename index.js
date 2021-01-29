@@ -8,7 +8,7 @@ catch {
 const db = require("./models");
 
 // Only start everything if the database is functional
-db.sequelize.sync({ force: true })
+db.sequelize.sync()
     .then(() => {
         process.bot = require("./bot");
         process.input = require("./console");
