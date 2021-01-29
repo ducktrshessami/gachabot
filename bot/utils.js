@@ -1,3 +1,5 @@
+const { MessageEmbed } = require("discord.js");
+
 /*
 Log a message
 @param message: Message
@@ -20,7 +22,25 @@ function sendVerbose(channel, content, options) {
         .then(logMessage)
 }
 
+/*
+Generate a message embed given a unit's info
+@param name: String
+@param type: String
+@param image: String
+@param color: ColorResolvable
+@return MessageEmbed
+*/
+function unitEmbed(name, type, image, color = "RANDOM") {
+    return new MessageEmbed({
+        color: color,
+        title: name,
+        description: type,
+        image: image
+    });
+}
+
 module.exports = {
     logMessage: logMessage,
-    sendVerbose: sendVerbose
+    sendVerbose: sendVerbose,
+    unitEmbed: unitEmbed
 };
