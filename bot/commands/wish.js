@@ -7,7 +7,7 @@ module.exports = new Command("wish", function(message, args) {
     utils.logMessage(message);
     db.alias.findOne({
         where: {
-            $and: Sequelize.where(Sequelize.fn("lower", Sequelize.col("name")), query)
+            $and: db.Sequelize.where(db.Sequelize.fn("lower", db.Sequelize.col("name")), query)
         },
         include: db.unit
     })
