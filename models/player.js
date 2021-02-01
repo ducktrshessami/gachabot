@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       models.player.hasMany(models.claim, { onDelete: "cascade" });
-      models.player.hasMany(models.wish, { onDelete: "cascade" });
     }
   };
   player.init({
