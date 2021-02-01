@@ -1,4 +1,4 @@
-const backup = require("../db/backup");
+const { backup } = require("../db");
 
 module.exports = function() {
     console.log("Creating seeders for all models . . .");

@@ -1,6 +1,6 @@
 const { Command } = require("discord-bot");
 const { sendVerbose } = require("../utils");
-const backup = require("../../db/backup");
+const { backup } = require("../../db");
 
 module.exports = new Command("backup", function(message) {
     sendVerbose(message.channel, "Backing up the database").catch(console.error);
