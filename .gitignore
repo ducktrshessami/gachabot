@@ -2,3 +2,4 @@ node_modules
 migrations
 seeders
 .env
+**/*test.js
