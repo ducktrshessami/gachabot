@@ -17,5 +17,4 @@ module.exports = function(n = 1, type) {
             }
         ]
     })
-        .then(data => data[0]);
 };
