@@ -39,6 +39,22 @@ function unitEmbed(name, type, image, color = "RANDOM") {
         .setImage(image);
 }
 
+/*
+sendVerbose a message and set up handling for reacts to change the message content
+@param channel: TextBasedChannel
+@param pages: Object {
+    content: String
+    options: MessageOptions | MessageAddition
+}
+@param wrap: Boolean
+@return Promise<Message>
+*/
+function sendPages(channel, pages, wrap = true) {
+    let i = 0;
+    let messageContent = pages[i];
+    return sendVerbose(channel, messageContent.content ? messageContent.content : "", messageContent.options)
+}
+
 module.exports = {
     logMessage: logMessage,
     sendVerbose: sendVerbose,
