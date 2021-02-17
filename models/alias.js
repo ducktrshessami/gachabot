@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false
         }
       });
+      models.alias.hasMany(models.claim);
     }
   };
   alias.init({

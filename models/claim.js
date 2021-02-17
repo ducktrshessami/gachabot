@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false
         }
       });
-      models.claim.belongsTo(models.unit, {
+      models.claim.belongsTo(models.alias, {
         foreignKey: {
           allowNull: false
         }
