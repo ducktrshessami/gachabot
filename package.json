@@ -21,13 +21,13 @@
   "homepage": "https://github.com/ducktrshessami/gachabot#readme",
   "dependencies": {
     "discord-bot": "github:ducktrshessami/discord-bot",
-    "express": "^4.17.1",
     "mysql2": "^2.2.5",
     "sequelize": "^6.5.0"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.3",
     "erlpack": "github:discord/erlpack",
+    "express": "^4.17.1",
     "utf-8-validate": "^5.0.4",
     "zlib-sync": "^0.1.7"
   },
