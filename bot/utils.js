@@ -49,14 +49,49 @@ sendVerbose a message and set up handling for reacts to change the message conte
 @param wrap: Boolean
 @return Promise<Message>
 */
-function sendPages(channel, pages, wrap = true) {
+function sendPages(channel, pages, left, right, ms) {
+    let timer;
     let i = 0;
-    let messageContent = pages[i];
-    return sendVerbose(channel, messageContent.content ? messageContent.content : "", messageContent.options)
+    return sendVerbose(channel, pages[i].content ? pages[i].content : "", pages[i].options)
+        .then(message => new Promise(async (resolve, reject) => {
+            let { client } = message;
+            let resetTimer = () => {
+                clearTimeout(timer);
+                timer = setTimeout(timeout, ms);
+            };
+            let handler = ({ emoji }) => {
+                if (emoji.toString() === left.toString()) {
+                    if (--i < 0) {
+                        i = pages.length - 1;
+                    }
+                }
+                else if (emoji.toString() === right.toString()) {
+                    if (++i >= pages.length) {
+                        i = 0;
+                    }
+                }
+                else {
+                    return;
+                }
+                message.edit(pages[i].content ? pages[i].content : "", pages[i].options)
+                    .then(resetTimer)
+                    .catch(reject);
+            };
+            let timeout = () => {
+                client.off("messageReactionAdd", handler);
+                client.off("messageReactionRemove", handler);
+                resolve(message);
+            };
+            await message.react(left);
+            await message.react(right);
+            client.on("messageReactionAdd", handler);
+            client.on("messageReactionRemove", handler);
+        }));
 }
 
 module.exports = {
     logMessage: logMessage,
     sendVerbose: sendVerbose,
-    unitEmbed: unitEmbed
+    unitEmbed: unitEmbed,
+    sendPages: sendPages
 };
