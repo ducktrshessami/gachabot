@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   guild.init({
     snowflake: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      primaryKey: true
     }
   }, {
     sequelize,
