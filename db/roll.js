@@ -9,7 +9,7 @@ module.exports = function(n = 1, type) {
         include: [
             {
                 model: db.alias,
-                attributes: ["name", "primary", "spoiler"]
+                attributes: ["id", "name", "primary", "spoiler"]
             },
             {
                 model: db.image,
