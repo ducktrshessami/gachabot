@@ -4,8 +4,7 @@
   "description": "Collectors only",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -27,7 +26,6 @@
   "optionalDependencies": {
     "bufferutil": "^4.0.3",
     "erlpack": "github:discord/erlpack",
-    "express": "^4.17.1",
     "utf-8-validate": "^5.0.4",
     "zlib-sync": "^0.1.7"
   },
