@@ -59,11 +59,11 @@ async function reactButtons(message, reactHandlers, ms) {
         client.off("messageReactionAdd", handlerWrapper);
         client.off("messageReactionRemove", handlerWrapper);
     };
-    let handlerWrapper = async reaction => {
+    let handlerWrapper = async (reaction, user) => {
         if (!reaction.me) {
             let handler = reactHandlers.find(handler => reaction.emoji.toString().includes(handler.emoji.toString()));
             if (handler) {
-                await handler.callback();
+                await handler.callback(reaction, user);
                 resetTimer();
             }
         }
