@@ -40,6 +40,44 @@ function unitEmbed(name, type, image, color = "RANDOM") {
 }
 
 /*
+Handle message react buttons
+@param message: Message
+@param reactHandlers: Array<Object> {
+    emoji: EmojiIdentifierResolvable,
+    callback: function
+}
+@param ms: Number
+*/
+async function reactButtons(message, reactHandlers, ms) {
+    let timer;
+    let { client } = message;
+    let resetTimer = () => {
+        clearTimeout(timer);
+        timer = setTimeout(timeout, ms);
+    };
+    let timeout = () => {
+        client.off("messageReactionAdd", handlerWrapper);
+        client.off("messageReactionRemove", handlerWrapper);
+    };
+    let handlerWrapper = async reaction => {
+        if (!reaction.me) {
+            let handler = reactHandlers.find(handler => reaction.emoji.toString().includes(handler.emoji.toString()));
+            if (handler) {
+                await handler.callback();
+                resetTimer();
+            }
+        }
+    };
+    client.on("messageReactionAdd", handlerWrapper);
+    client.on("messageReactionRemove", handlerWrapper);
+    timer = setTimeout(timeout, ms);
+    for (let i = 0; i < reactHandlers.length; i++) {
+        await message.react(reactHandlers[i].emoji);
+    }
+    return message;
+}
+
+/*
 sendVerbose a message and set up handling for reacts to change the message content
 @param channel: TextBasedChannel
 @param pages: Object {
