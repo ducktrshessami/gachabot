@@ -84,52 +84,41 @@ sendVerbose a message and set up handling for reacts to change the message conte
     content: String
     options: MessageOptions | MessageAddition
 }
-@param wrap: Boolean
+@param left: EmojiIdentifierResolvable
+@param right: EmojiIdentifierResolvable
+@param ms: Number
 @return Promise<Message>
 */
 function sendPages(channel, pages, left, right, ms) {
     let timer;
     let i = 0;
     return sendVerbose(channel, pages[i].content ? pages[i].content : "", pages[i].options)
-        .then(message => new Promise(async (resolve, reject) => {
-            let { client } = message;
-            let resetTimer = () => {
-                clearTimeout(timer);
-                timer = setTimeout(timeout, ms);
-            };
-            let handler = ({ emoji }) => {
-                if (emoji.toString() === left.toString()) {
+        .then(message => reactButtons(message, [
+            {
+                emoji: left,
+                callback: () => {
                     if (--i < 0) {
                         i = pages.length - 1;
                     }
+                    message.edit(pages[i].content ? pages[i].content : "", pages[i].options);
                 }
-                else if (emoji.toString() === right.toString()) {
+            },
+            {
+                emoji: right,
+                callback: () => {
                     if (++i >= pages.length) {
                         i = 0;
                     }
+                    message.edit(pages[i].content ? pages[i].content : "", pages[i].options);
                 }
-                else {
-                    return;
-                }
-                message.edit(pages[i].content ? pages[i].content : "", pages[i].options)
-                    .then(resetTimer)
-                    .catch(reject);
-            };
-            let timeout = () => {
-                client.off("messageReactionAdd", handler);
-                client.off("messageReactionRemove", handler);
-                resolve(message);
-            };
-            await message.react(left);
-            await message.react(right);
-            client.on("messageReactionAdd", handler);
-            client.on("messageReactionRemove", handler);
-        }));
+            }
+        ], ms));
 }
 
 module.exports = {
     logMessage: logMessage,
     sendVerbose: sendVerbose,
     unitEmbed: unitEmbed,
-    sendPages: sendPages
+    sendPages: sendPages,
+    reactButtons: reactButtons
 };
