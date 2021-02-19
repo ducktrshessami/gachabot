@@ -62,5 +62,8 @@ module.exports = new Command("roll", function(message) {
         }], 60000))
         .catch(console.error);
 }, {
-
+    aliases: ["r"],
+    usage: "@gachabot roll",
+    description: "Roll a random unit of any type",
+    subtitle: "React with the provided ❤️ react within 1 minute to claim the unit"
 });

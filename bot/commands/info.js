@@ -39,7 +39,7 @@ module.exports = new Command("info", function (message, args) {
         .catch(console.error);
 }, {
     aliases: ["i"],
-    usage: "@unnamed gachabot info <unit name>",
+    usage: "@gachabot info <unit name>",
     description: "Displays additional info about a unit",
     subtitle: "Can also search by an alias"
 });

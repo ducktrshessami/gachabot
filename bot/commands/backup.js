@@ -10,4 +10,9 @@ module.exports = new Command("backup", function(message) {
             console.log(err);
             sendVerbose(message.channel, `${message.author} Encountered an error backing up the database`).catch(console.error);
         });
-}, { admin: true });
+}, {
+    admin: true,
+    usage: "@gachabot backup",
+    description: "Backup the entire database as a Sequelize seeder",
+    subtitle: "Botmin only"
+});
