@@ -15,4 +15,6 @@ client.on("shardDisconnect", function() {
     process.exit();
 });
 
+client.on("error", console.error);
+
 module.exports = client;
