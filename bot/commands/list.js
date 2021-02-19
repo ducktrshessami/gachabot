@@ -20,7 +20,7 @@ function generateList(username, data, color = "RANDOM", perPage = 15) {
             });
         }
     }
-    return pages
+    return pages;
 }
 
 function getUnits(player, guild) {
@@ -40,7 +40,7 @@ function getUnits(player, guild) {
                 order: ["createdAt", "asc"]
             }
         }) : null)
-        .then(player => player ? player.claims : null);
+        .then(player => player ? player.claims : []);
 }
 
 module.exports = new Command("list", function(message, args) {
