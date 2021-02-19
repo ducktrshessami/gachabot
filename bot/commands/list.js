@@ -26,10 +26,10 @@ function generateList(username, data, color = "RANDOM", perPage = 15) {
 function getUnits(player, guild) {
     return db.guild.findOne({
         attributes: ["id"],
-        where: { snowflake: guild }
+        where: { id: guild }
     })
         .then(guildData => guildData ? db.player.findOne({
-            where: { snowflake: player },
+            where: { id: player },
             include: {
                 model: db.claim,
                 where: { guildId: guildData.id },
