@@ -50,7 +50,7 @@ module.exports = new Command("roll", function(message) {
         .then(() => showUnit(unit))
         .then(embed => utils.sendVerbose(message.channel, "", embed))
         .then(response => utils.reactButtons(response, [{
-            emoji: "❤",
+            emoji: "❤️",
             callback: (reaction, user) => {
                 if (!claimed && user.id == message.author.id) {
                     claimed = true;
