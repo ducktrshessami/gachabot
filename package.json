@@ -1,0 +1,35 @@
+{
+  "name": "gachabot",
+  "version": "1.0.0",
+  "description": "Collectors only",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ducktrshessami/gachabot.git"
+  },
+  "contributors": [
+    "ducktrshessami (https://github.com/ducktrshessami)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ducktrshessami/gachabot/issues"
+  },
+  "homepage": "https://github.com/ducktrshessami/gachabot#readme",
+  "dependencies": {
+    "discord-bot": "github:ducktrshessami/discord-bot",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.5.0"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.3",
+    "erlpack": "github:discord/erlpack",
+    "utf-8-validate": "^5.0.4",
+    "zlib-sync": "^0.1.7"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
