@@ -64,5 +64,8 @@ module.exports = new Command("list", function(message, args) {
         })
         .catch(console.error);
 }, {
-
+    aliases: ["l"],
+    usage: "@gachabot list [player]",
+    description: "Display a player's claimed units",
+    subtitle: "@ mention someone to view their list instead of your own"
 });
