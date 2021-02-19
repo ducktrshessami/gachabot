@@ -3,6 +3,11 @@ const fs = require("fs");
 const db = require("../models");
 
 const seeders = resolve(__dirname, "..", "seeders");
+const priority = [
+    "unit",
+    "guild",
+    "player"
+];
 
 // Create the seeders folder if it doesn't exist yet
 async function initSeeders() {
@@ -67,10 +72,15 @@ function formatTableData(tableData) {
     }), null, 4);
 }
 
-module.exports = function() {
+module.exports = function () {
     let up = [], down = [];
     return Promise.all(Object.keys(db)
         .filter(key => key.toLowerCase() != "sequelize")
+        .sort((a, b) => {
+            let c = priority.indexOf(a);
+            let d = priority.indexOf(b);
+            return (c & d) < 0 ? 0 : ((c | d) < 0 ? d - c : c - d);
+        })
         .map(model => {
             let table = db[model].getTableName();
             return db[model].findAll()
