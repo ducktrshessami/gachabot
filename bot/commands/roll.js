@@ -14,6 +14,27 @@ function showUnit(unit, owner) {
     }
 }
 
+function checkId(model, id) {
+    return model.findByPk(id)
+        .then(response => {
+            if (!response) {
+                return model.create({ id: id });
+            }
+        });
+}
+
+function handleClaim(guild, player, alias) {
+    return Promise.all([
+        checkId(db.guild, guild),
+        checkId(db.player, player)
+    ])
+        .then(() => db.claim.create({
+            guildId: guild,
+            playerId: player,
+            aliasId: alias
+        }));
+}
+
 module.exports = new Command("roll", function(message) {
     let unit, alias;
     let claimed = false;
@@ -33,12 +54,8 @@ module.exports = new Command("roll", function(message) {
             callback: (reaction, user) => {
                 if (!claimed && user.id == message.author.id) {
                     claimed = true;
-                    db.claim.create({
-                        guildId: message.guild.id,
-                        playerId: user.id,
-                        aliasId: alias.id
-                    })
-                        .then(() => showClaimed(unit, user.username))
+                    handleClaim(message.guild.id, user.id, alias.id)
+                        .then(() => showUnit(unit, user.username))
                         .then(embed => response.edit("", embed));
                 }
             }
