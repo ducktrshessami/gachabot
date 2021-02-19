@@ -13,12 +13,12 @@ db.sequelize.sync()
         process.bot = require("./bot");
         process.input = require("./console");
     })
-    .catch(sumTingWong);
+    .catch(startupError);
 
 /*
 Close everything
 */
-function sumTingWong(error) {
+function startupError(error) {
     if (error) {
         console.error(error);
     }
