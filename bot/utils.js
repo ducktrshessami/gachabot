@@ -115,6 +115,10 @@ function sendPages(channel, pages, left, right, ms) {
         ], ms));
 }
 
+function awaitResponse() {
+    
+}
+
 module.exports = {
     logMessage: logMessage,
     sendVerbose: sendVerbose,
