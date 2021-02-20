@@ -23,7 +23,21 @@ module.exports = new Command("remove", function (message, args) {
                 return findClaim(alias.unit.id, message.author.id, message.guild.id)
                     .then(claim => {
                         if (claim) {
-                            // awaitResponse
+                            utils.awaitResponse(message.channel, `${message.author} Are you sure you want to remove **${alias.name}**? (y/n)`, undefined, reply => ["y", "n", "yes", "no"].includes(reply.content.toLowerCase()), 60000)
+                                .then(reply => {
+                                    if (reply) {
+                                        if (reply.content.toLowerCase().startsWith("y")) {
+                                            return claim.destroy()
+                                                .then(() => utils.sendVerbose(message.channel, `${message.author} Removed **${alias.name}**`));
+                                        }
+                                        else {
+                                            return utils.sendVerbose(message.channel, `${message.author} Remove cancelled`);
+                                        }
+                                    }
+                                    else {
+                                        return utils.sendVerbose(message.channel, `${message.author} `);
+                                    }
+                                })
                         }
                         else {
                             return utils.sendVerbose(message.channel, `${message.author} **${alias.name}** doesn't belong to you`);
