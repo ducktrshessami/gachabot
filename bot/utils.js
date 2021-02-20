@@ -44,7 +44,7 @@ Handle message react buttons
 @param message: Message
 @param reactHandlers: Array<Object> {
     emoji: EmojiIdentifierResolvable,
-    callback: function
+    callback: function(messageReaction: MessageReaction, user: User): any
 }
 @param ms: Number
 */
@@ -115,8 +115,42 @@ function sendPages(channel, pages, left, right, ms) {
         ], ms));
 }
 
-function awaitResponse() {
-    
+/*
+Send a message and wait for a reply that passes a given test
+@param channel: TextBasedChannel
+@param content: String
+@param options: MessageOptions | MessageAddition
+@param messageTest: function(message: Message): Boolean
+@param ms: Number
+@param verbose: Boolean
+@return Promise<Message>
+*/
+function awaitResponse(channel, content, options, messageTest, ms, verbose = true) {
+    return new Promise((resolve, reject) => {
+        channel.send(content, options)
+            .then(message => {
+                let timer;
+                let { client } = message;
+                let handler = reply => {
+                    if (messageTest(reply)) {
+                        clearTimeout(timer);
+                        timeout();
+                        if (verbose) {
+                            logMessage(reply);
+                        }
+                        resolve(reply);
+                    }
+                };
+                let timeout = () => {
+                    client.off("message", handler);
+                };
+                if (verbose) {
+                    logMessage(message);
+                }
+                client.on("message", handler);
+                timer = setTimeout(timeout, ms);
+            })
+    });
 }
 
 module.exports = {
@@ -124,5 +158,6 @@ module.exports = {
     sendVerbose: sendVerbose,
     unitEmbed: unitEmbed,
     sendPages: sendPages,
-    reactButtons: reactButtons
+    reactButtons: reactButtons,
+    awaitResponse: awaitResponse
 };
