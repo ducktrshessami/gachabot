@@ -132,9 +132,9 @@ function awaitResponse(channel, content, options, messageTest, ms, verbose = tru
                 let timer;
                 let { client } = message;
                 let handler = reply => {
-                    if (messageTest(reply)) {
+                    if (message.channel.id === channel.id && messageTest(reply)) {
                         clearTimeout(timer);
-                        timeout();
+                        client.off("message", handler);
                         if (verbose) {
                             logMessage(reply);
                         }
@@ -143,6 +143,7 @@ function awaitResponse(channel, content, options, messageTest, ms, verbose = tru
                 };
                 let timeout = () => {
                     client.off("message", handler);
+                    resolve();
                 };
                 if (verbose) {
                     logMessage(message);
