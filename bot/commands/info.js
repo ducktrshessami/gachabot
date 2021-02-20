@@ -1,6 +1,7 @@
 const { Command } = require("discord-bot");
 const utils = require("../utils");
 const db = require("../../models");
+const { aliasQuery } = require("../../db");
 
 function parseInfo(data) {
     let name = data.unit.aliases.find(alias => alias.primary).name;
@@ -17,17 +18,8 @@ function parseInfo(data) {
 
 module.exports = new Command("info", function (message, args) {
     let query = args.slice(1).join(" ").trim();
-    let queryLower = query.toLowerCase();
     utils.logMessage(message);
-    db.alias.findOne({
-        where: {
-            $and: db.Sequelize.where(db.Sequelize.fn("lower", db.Sequelize.col("name")), queryLower)
-        },
-        include: {
-            model: db.unit,
-            include: [db.image, db.alias]
-        }
-    })
+    aliasQuery(query)
         .then(data => {
             if (data) {
                 return utils.sendPages(message.channel, parseInfo(data), "⬅️", "➡️", 30000);
