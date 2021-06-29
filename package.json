@@ -10,9 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/ducktrshessami/gachabot.git"
   },
-  "contributors": [
-    "ducktrshessami (https://github.com/ducktrshessami)"
-  ],
+  "author": "ducktrshessami",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ducktrshessami/gachabot/issues"
@@ -21,7 +19,7 @@
   "dependencies": {
     "discord-bot": "github:ducktrshessami/discord-bot",
     "mysql2": "^2.2.5",
-    "sequelize": "^6.6.2"
+    "sequelize": "^6.6.4"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.3",
