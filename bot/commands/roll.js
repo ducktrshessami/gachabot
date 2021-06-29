@@ -1,12 +1,12 @@
-const { Command } = require("discord-bot");
-const utils = require("../utils");
+const { Command, utils } = require("discord-bot");
+const unitEmbed = require("../unitEmbed");
 const { roll } = require("../../db");
 const db = require("../../models");
 
 function showUnit(unit, owner) {
     let primary = unit.aliases.find(alias => alias.primary);
     if (primary) {
-        let embed = utils.unitEmbed(primary.name, unit.type, unit.images[0].url);
+        let embed = unitEmbed(primary.name, unit.type, unit.images[0].url);
         if (owner) {
             embed.setFooter(`Belongs to ${owner}`);
         }
@@ -35,7 +35,7 @@ function handleClaim(guild, player, alias) {
         }));
 }
 
-module.exports = new Command("roll", function(message) {
+module.exports = new Command("roll", function (message) {
     let unit, alias;
     let claimed = false;
     utils.logMessage(message);

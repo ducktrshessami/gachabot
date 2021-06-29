@@ -1,7 +1,6 @@
 const { MessageEmbed } = require("discord.js");
-const { Command } = require("discord-bot");
+const { Command, utils } = require("discord-bot");
 const db = require("../../models");
-const utils = require("../utils");
 
 function generateList(username, data, color = "RANDOM", perPage = 15) {
     let pages = [];
@@ -43,7 +42,7 @@ function getUnits(player, guild) {
         .then(player => player ? player.claims : []);
 }
 
-module.exports = new Command("list", function(message, args) {
+module.exports = new Command("list", function (message, args) {
     let snowflake = message.author.id;
     utils.logMessage(message);
     if (args[1] && args[1] === args[1].match(/<@[0-9]+>|<@\![0-9]+>/)[0]) {
@@ -53,7 +52,7 @@ module.exports = new Command("list", function(message, args) {
         .then(data => generateList(message.author.username, data))
         .then(pages => {
             switch (pages.length) {
-                default: return utils.sendPages(message.channel, pages, "⬅️", "➡️", 30000);
+                default: return utils.sendPages(message.channel, pages, 30000, "⬅️", "➡️");
                 case 1: return utils.sendVerbose(message.channel, pages[0].content, pages[0].options);
                 case 0: return utils.sendVerbose(message.channel, "", new MessageEmbed({
                     color: "RANDOM",

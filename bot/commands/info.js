@@ -1,13 +1,12 @@
-const { Command } = require("discord-bot");
-const utils = require("../utils");
-const db = require("../../models");
+const { Command, utils } = require("discord-bot");
+const unitEmbed = require("../unitEmbed");
 const { aliasQuery } = require("../../db");
 
 function parseInfo(data) {
     let name = data.unit.aliases.find(alias => alias.primary).name;
     return data.unit.images.map(({ url }, i, foo) => ({
         content: "",
-        options: utils.unitEmbed(
+        options: unitEmbed(
             name,
             data.unit.type,
             url
@@ -22,7 +21,7 @@ module.exports = new Command("info", function (message, args) {
     aliasQuery(query)
         .then(data => {
             if (data) {
-                return utils.sendPages(message.channel, parseInfo(data), "⬅️", "➡️", 30000);
+                return utils.sendPages(message.channel, parseInfo(data), 30000, "⬅️", "➡️");
             }
             else {
                 return utils.sendVerbose(message.channel, `Could not find \`${query}\``);

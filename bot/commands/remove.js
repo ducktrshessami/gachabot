@@ -1,6 +1,5 @@
-const { Command } = require("discord-bot");
+const { Command, utils } = require("discord-bot");
 const db = require("../../models");
-const utils = require("../utils");
 const { aliasQuery } = require("../../db");
 
 function findClaim(unitId, playerId, guildId) {
@@ -23,7 +22,7 @@ module.exports = new Command("remove", function (message, args) {
                 return findClaim(alias.unit.id, message.author.id, message.guild.id)
                     .then(claim => {
                         if (claim) {
-                            utils.awaitResponse(message.channel, `${message.author} Are you sure you want to remove **${alias.name}**? (y/n)`, undefined, reply => ["y", "n", "yes", "no"].includes(reply.content.toLowerCase()), 60000)
+                            utils.awaitResponse(reply => ["y", "n", "yes", "no"].includes(reply.content.trim().toLowerCase()), 60000, message.channel, `${message.author} Are you sure you want to remove **${alias.name}**? (y/n)`)
                                 .then(reply => {
                                     if (reply) {
                                         if (reply.content.toLowerCase().startsWith("y")) {
