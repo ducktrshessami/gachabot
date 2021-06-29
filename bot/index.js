@@ -6,11 +6,11 @@ var client;
 
 client = new DiscordBot(config, commands);
 
-client.on("ready", function() {
+client.on("ready", function () {
     console.log(`Logged in as ${client.user.username}#${client.user.discriminator}`);
 });
 
-client.on("shardDisconnect", function() {
+client.on("shardDisconnect", function () {
     console.log("Logged off");
     process.exit();
 });

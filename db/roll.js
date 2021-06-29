@@ -1,6 +1,6 @@
 const db = require("../models");
 
-module.exports = function(n = 1, type) {
+module.exports = function (n = 1, type) {
     return db.unit.findAll({
         order: db.sequelize.random(),
         attributes: ["type"],
