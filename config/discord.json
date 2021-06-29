@@ -1,6 +1,6 @@
 {
     "token": null,
-    "admin": [],
+    "botmins": [],
     "generateCmd": {
         "help": true,
         "prefix": true
